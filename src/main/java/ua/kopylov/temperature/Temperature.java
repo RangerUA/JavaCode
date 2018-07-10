@@ -20,7 +20,7 @@ public class Temperature {
     }
 
     @Override
-    public java.lang.String toString() {
+    public String toString() {
         return  scale +
                 ": \"" + degree + "\"";
     }

@@ -1,5 +1,6 @@
 package ua.kopylov.temperature.converter;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import ua.kopylov.temperature.Temperature;
 import ua.kopylov.temperature.extractor.Extractor;
 
@@ -12,8 +13,8 @@ public class TemperatureConverter implements Converter {
     private String temperature;
 
     public TemperatureConverter(Extractor extractor, String temperature) {
-        this.extractor = extractor;
-        this.temperature = temperature;
+        this.extractor = checkNotNull(extractor);
+        this.temperature = checkNotNull(temperature, "Temperature must not be null!");
     }
 
     public List<Temperature> run() {
