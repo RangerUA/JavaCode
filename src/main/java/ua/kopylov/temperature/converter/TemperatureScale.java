@@ -41,6 +41,16 @@ public enum TemperatureScale {
         from.operator.put(to, op);
     }
 
+    public static boolean isMinimalTemperature(TemperatureScale scale, double degree) {
+        if (scale.abbreviation == 'K' && degree < 0) {
+            return false;
+        }
+        if (scale.abbreviation == 'C' && degree < -273.15) {
+            return false;
+        }
+        return scale.abbreviation != 'F' || !(degree < -459.67);
+    }
+
     public static TemperatureScale valueOfAbbreviation(char source) {
         return Arrays.stream(values())
                 .filter(target -> target.getAbbreviation() == source)
