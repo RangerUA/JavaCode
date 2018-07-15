@@ -1,5 +1,8 @@
 package ua.kopylov.delivery.provider;
+
 import java.util.stream.IntStream;
+
+import static com.google.common.base.Preconditions.checkArgument;
 
 public class RandomFeeProvider implements FeeProvider {
     private final int checkpoint;
@@ -23,6 +26,8 @@ public class RandomFeeProvider implements FeeProvider {
 
     @Override
     public int[] get() {
+        checkArgument(checkpoint == 10,
+                "Number of checkpoint should be equals 10");
         int fees[] = new int[checkpoint];
         for(int i = 0; i < checkpoint; i++){
             fees[i] = getRandom();

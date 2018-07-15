@@ -10,7 +10,7 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
         FeeProvider feeProvider = new RandomFeeProvider(
-                11,
+                10,
                 55,
                 1,
                 10);

@@ -1,5 +1,8 @@
 package ua.kopylov.delivery.payer;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 public class MinimalPayer implements Payer {
     private int coinsCount;
 
@@ -9,13 +12,12 @@ public class MinimalPayer implements Payer {
 
     @Override
     public int[] run(int[] fee) {
+        checkNotNull(fee, "Fee must not be null!");
         int length = fee.length;
-        if (coinsCount < length) {
-            throw new ArrayIndexOutOfBoundsException(String.format(
+        checkArgument(coinsCount == length, String.format(
                     "Numbers of coins can't be less then numbers of checkpoints\n" +
-                    "Expected numbers of checkpoints: %s, \n" +
-                            "actual: %s", coinsCount, length));
-        }
+                    "\t\tExpected numbers of checkpoints: %s, \n" +
+                            "\t\tactual: %s", coinsCount, length));
         int[] pays = new int[length];
 
         for (int i = length; i > 0; i--) {

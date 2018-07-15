@@ -24,8 +24,8 @@ public class TemperatureConverter implements Converter {
         double degree = data.getDegree();
         checkArgument(TemperatureScale.isMinimalTemperature(sourceScale, degree),
                 "Absolute zero - the minimum possible temperature is 0K (-459.67 ° F, -273.15 ° C).\n" +
-                        "           Below this temperature value does not exist.\n" +
-                        "           Actual: " + "\"" + temperature + "\"");
+                        "\t\t\tBelow this temperature value does not exist.\n" +
+                        "\t\t\tActual: " + "\"" + temperature + "\"");
 
         return Stream.of(TemperatureScale.values())
                 .filter(currentScale -> currentScale != sourceScale)
