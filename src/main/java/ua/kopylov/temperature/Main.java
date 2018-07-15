@@ -12,7 +12,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         Extractor extractor = new TemperatureExtractor();
-        Converter converter = new TemperatureConverter(extractor, "-274c");
+        Converter converter = new TemperatureConverter(extractor, "0cccbcc");
         Printer printer = new ResultPrinter();
         List<Temperature> list = converter.run();
         printer.printJson(list);

@@ -8,6 +8,7 @@ import java.util.function.DoubleUnaryOperator;
 public enum TemperatureScale {
     CELSIUS('C'), FAHRENHEIT('F'), KELVIN('K');
     private char abbreviation;
+    public double minimalTemperature;
     private final Map<TemperatureScale, DoubleUnaryOperator> operator = new HashMap<>();
 
     TemperatureScale(char abbreviation) {
@@ -51,10 +52,19 @@ public enum TemperatureScale {
         return scale.abbreviation != 'F' || !(degree < -459.67);
     }
 
+    public static boolean isInteger(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
+
     public static TemperatureScale valueOfAbbreviation(char source) {
         return Arrays.stream(values())
                 .filter(target -> target.getAbbreviation() == source)
                 .findAny()
-                .orElseThrow(() -> new IllegalArgumentException("TemperatureScale is wrong: " + source));
+                .orElseThrow(() -> new IllegalArgumentException("TemperatureScale is wrong: " + "\"" + source + "\""));
     }
 }

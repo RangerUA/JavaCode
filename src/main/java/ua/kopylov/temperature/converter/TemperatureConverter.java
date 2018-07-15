@@ -1,5 +1,6 @@
 package ua.kopylov.temperature.converter;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import ua.kopylov.temperature.Temperature;
 import ua.kopylov.temperature.extractor.Extractor;
@@ -21,6 +22,10 @@ public class TemperatureConverter implements Converter {
         Temperature data = extractor.get(temperature);
         TemperatureScale sourceScale = data.getScale();
         double degree = data.getDegree();
+        checkArgument(TemperatureScale.isMinimalTemperature(sourceScale, degree),
+                "Absolute zero - the minimum possible temperature is 0K (-459.67 ° F, -273.15 ° C).\n" +
+                        "           Below this temperature value does not exist.\n" +
+                        "           Actual: " + "\"" + temperature + "\"");
 
         return Stream.of(TemperatureScale.values())
                 .filter(currentScale -> currentScale != sourceScale)
