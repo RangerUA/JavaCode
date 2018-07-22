@@ -11,20 +11,18 @@ import java.util.stream.Stream;
 
 public class TemperatureConverter implements Converter {
     private Extractor extractor;
-    private String temperature;
 
-    public TemperatureConverter(Extractor extractor, String temperature) {
+    public TemperatureConverter(Extractor extractor) {
         this.extractor = checkNotNull(extractor);
-        this.temperature = checkNotNull(temperature, "Temperature must not be null!");
     }
 
-    public List<Temperature> run() {
+    public List<Temperature> run(String temperature) {
+        checkNotNull(temperature, "Temperature must not be null!");
         Temperature data = extractor.get(temperature);
         TemperatureScale sourceScale = data.getScale();
         double degree = data.getDegree();
-        checkArgument(TemperatureScale.isMinimalTemperature(sourceScale, degree),
-                "Absolute zero - the minimum possible temperature is 0K (-459.67 ° F, -273.15 ° C).\n" +
-                        "\t\t\tBelow this temperature value does not exist.\n" +
+        checkArgument(sourceScale.getMinimum() <= degree,
+                "Minimum temperature should be: 0°K, -459.67°F, -273.15°C\n" +
                         "\t\t\tActual: " + "\"" + temperature + "\"");
 
         return Stream.of(TemperatureScale.values())

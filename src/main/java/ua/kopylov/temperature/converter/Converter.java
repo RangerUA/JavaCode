@@ -5,5 +5,5 @@ import ua.kopylov.temperature.Temperature;
 import java.util.List;
 
 public interface Converter {
-    List<Temperature> run();
+    List<Temperature> run(String temperature);
 }

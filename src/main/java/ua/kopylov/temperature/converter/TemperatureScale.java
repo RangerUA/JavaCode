@@ -6,17 +6,22 @@ import java.util.Map;
 import java.util.function.DoubleUnaryOperator;
 
 public enum TemperatureScale {
-    CELSIUS('C'), FAHRENHEIT('F'), KELVIN('K');
+    CELSIUS('C', -273.15d), FAHRENHEIT('F', -459.67d), KELVIN('K', 0d);
     private char abbreviation;
-    public double minimalTemperature;
+    private double minimum;
     private final Map<TemperatureScale, DoubleUnaryOperator> operator = new HashMap<>();
 
-    TemperatureScale(char abbreviation) {
+    TemperatureScale(char abbreviation, double minimum) {
         this.abbreviation = abbreviation;
+        this.minimum = minimum;
     }
 
     public char getAbbreviation() {
         return abbreviation;
+    }
+
+    public double getMinimum() {
+        return minimum;
     }
 
     public DoubleUnaryOperator to(TemperatureScale to) {
@@ -40,16 +45,6 @@ public enum TemperatureScale {
 
     private static void put(TemperatureScale from, TemperatureScale to, DoubleUnaryOperator op) {
         from.operator.put(to, op);
-    }
-
-    public static boolean isMinimalTemperature(TemperatureScale scale, double degree) {
-        if (scale.abbreviation == 'K' && degree < 0) {
-            return false;
-        }
-        if (scale.abbreviation == 'C' && degree < -273.15) {
-            return false;
-        }
-        return scale.abbreviation != 'F' || !(degree < -459.67);
     }
 
     public static boolean isInteger(String str) {
