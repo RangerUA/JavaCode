@@ -14,7 +14,7 @@ public class Main {
         Extractor extractor = new TemperatureExtractor();
         Converter converter = new TemperatureConverter(extractor);
         Printer printer = new ResultPrinter();
-        List<Temperature> list = converter.run("-274c");
+        List<Temperature> list = converter.run("0c");
         printer.printJson(list);
     }
 }
